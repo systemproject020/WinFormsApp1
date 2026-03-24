@@ -204,9 +204,8 @@
             lblStatus.ForeColor = Color.Black;
             lblStatus.Location = new Point(189, 151);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(111, 36);
+            lblStatus.Size = new Size(0, 36);
             lblStatus.TabIndex = 15;
-            lblStatus.Text = "gfdhfxtr";
             lblStatus.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnReports
