@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             txtStudentID = new TextBox();
             txtStudentName = new TextBox();
             lblid = new Label();
@@ -39,38 +40,44 @@
             btnVerifyBorrow = new Button();
             btnReturn = new Button();
             dgvBooks = new DataGridView();
-            dgvReports = new DataGridView();
             rdoHistory = new RadioButton();
             rdoMostBorrowed = new RadioButton();
-            lblStatus = new Label();
+            lblTitle = new Label();
             btnReports = new Button();
-            btnClear = new Button();
-            label4 = new Label();
+            dataGridView1 = new DataGridView();
+            dataGridView2 = new DataGridView();
+            rdoAvailable = new RadioButton();
+            dataGridView3 = new DataGridView();
+            dataGridView4 = new DataGridView();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvBooks).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvReports).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
             SuspendLayout();
             // 
             // txtStudentID
             // 
-            txtStudentID.Location = new Point(221, 287);
+            txtStudentID.Location = new Point(209, 256);
             txtStudentID.Multiline = true;
             txtStudentID.Name = "txtStudentID";
-            txtStudentID.Size = new Size(244, 30);
+            txtStudentID.Size = new Size(300, 30);
             txtStudentID.TabIndex = 0;
             // 
             // txtStudentName
             // 
-            txtStudentName.Location = new Point(221, 340);
+            txtStudentName.Location = new Point(247, 307);
             txtStudentName.Name = "txtStudentName";
-            txtStudentName.Size = new Size(244, 31);
+            txtStudentName.Size = new Size(262, 31);
             txtStudentName.TabIndex = 1;
             // 
             // lblid
             // 
             lblid.AutoSize = true;
+            lblid.BackColor = Color.SeaShell;
             lblid.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            lblid.Location = new Point(55, 281);
+            lblid.Location = new Point(68, 255);
             lblid.Name = "lblid";
             lblid.Size = new Size(135, 30);
             lblid.TabIndex = 2;
@@ -79,8 +86,9 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.SeaShell;
             label1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label1.Location = new Point(26, 339);
+            label1.Location = new Point(68, 306);
             label1.Name = "label1";
             label1.Size = new Size(173, 30);
             label1.TabIndex = 3;
@@ -88,12 +96,12 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(64, 64, 64);
+            panel1.BackColor = Color.Navy;
             panel1.Controls.Add(label2);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1312, 92);
+            panel1.Size = new Size(1361, 69);
             panel1.TabIndex = 4;
             // 
             // label2
@@ -102,24 +110,25 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Showcard Gothic", 20F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(488, 23);
+            label2.Location = new Point(31, 9);
             label2.Name = "label2";
-            label2.Size = new Size(246, 50);
+            label2.Size = new Size(627, 50);
             label2.TabIndex = 5;
-            label2.Text = "Main Form";
+            label2.Text = "Library Borrowing System";
             // 
             // txtBookID
             // 
-            txtBookID.Location = new Point(221, 392);
+            txtBookID.Location = new Point(170, 349);
             txtBookID.Name = "txtBookID";
-            txtBookID.Size = new Size(244, 31);
+            txtBookID.Size = new Size(339, 31);
             txtBookID.TabIndex = 5;
             // 
             // label3
             // 
             label3.AutoSize = true;
+            label3.BackColor = Color.SeaShell;
             label3.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label3.Location = new Point(84, 391);
+            label3.Location = new Point(68, 348);
             label3.Name = "label3";
             label3.Size = new Size(106, 30);
             label3.TabIndex = 6;
@@ -127,134 +136,156 @@
             // 
             // btnVerifyBorrow
             // 
-            btnVerifyBorrow.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnVerifyBorrow.Location = new Point(205, 455);
+            btnVerifyBorrow.BackgroundImage = (Image)resources.GetObject("btnVerifyBorrow.BackgroundImage");
+            btnVerifyBorrow.BackgroundImageLayout = ImageLayout.Stretch;
+            btnVerifyBorrow.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnVerifyBorrow.Location = new Point(158, 398);
             btnVerifyBorrow.Name = "btnVerifyBorrow";
-            btnVerifyBorrow.Size = new Size(165, 40);
+            btnVerifyBorrow.Size = new Size(185, 54);
             btnVerifyBorrow.TabIndex = 7;
-            btnVerifyBorrow.Text = "Verify Borrow";
             btnVerifyBorrow.UseVisualStyleBackColor = true;
             btnVerifyBorrow.Click += btnVerifyBorrow_Click;
             // 
             // btnReturn
             // 
+            btnReturn.BackColor = Color.Transparent;
+            btnReturn.BackgroundImage = (Image)resources.GetObject("btnReturn.BackgroundImage");
+            btnReturn.BackgroundImageLayout = ImageLayout.Stretch;
             btnReturn.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnReturn.Location = new Point(376, 455);
+            btnReturn.Location = new Point(365, 398);
             btnReturn.Name = "btnReturn";
-            btnReturn.Size = new Size(89, 40);
+            btnReturn.Size = new Size(157, 56);
             btnReturn.TabIndex = 8;
-            btnReturn.Text = "Return";
-            btnReturn.UseVisualStyleBackColor = true;
+            btnReturn.UseVisualStyleBackColor = false;
             btnReturn.Click += btnReturn_Click;
             // 
             // dgvBooks
             // 
-            dgvBooks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvBooks.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvBooks.BackgroundColor = Color.Silver;
             dgvBooks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBooks.Location = new Point(672, 234);
+            dgvBooks.Location = new Point(677, 178);
             dgvBooks.Name = "dgvBooks";
             dgvBooks.RowHeadersWidth = 62;
-            dgvBooks.Size = new Size(628, 277);
+            dgvBooks.Size = new Size(636, 290);
             dgvBooks.TabIndex = 10;
-            // 
-            // dgvReports
-            // 
-            dgvReports.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dgvReports.BackgroundColor = Color.Silver;
-            dgvReports.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvReports.GridColor = SystemColors.ScrollBar;
-            dgvReports.Location = new Point(672, 517);
-            dgvReports.Name = "dgvReports";
-            dgvReports.RowHeadersWidth = 62;
-            dgvReports.Size = new Size(628, 297);
-            dgvReports.TabIndex = 11;
-            dgvReports.CellContentClick += dgvReports_CellContentClick;
             // 
             // rdoHistory
             // 
             rdoHistory.AutoSize = true;
+            rdoHistory.BackColor = Color.SeaShell;
             rdoHistory.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            rdoHistory.Location = new Point(465, 655);
+            rdoHistory.Location = new Point(734, 521);
             rdoHistory.Name = "rdoHistory";
             rdoHistory.Size = new Size(188, 32);
             rdoHistory.TabIndex = 12;
             rdoHistory.TabStop = true;
             rdoHistory.Text = " Borrow History";
-            rdoHistory.UseVisualStyleBackColor = true;
-            rdoHistory.CheckedChanged += rdoHistory_CheckedChanged;
+            rdoHistory.UseVisualStyleBackColor = false;
             // 
             // rdoMostBorrowed
             // 
             rdoMostBorrowed.AutoSize = true;
+            rdoMostBorrowed.BackColor = Color.SeaShell;
             rdoMostBorrowed.Font = new Font("Segoe UI", 10F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            rdoMostBorrowed.Location = new Point(473, 606);
+            rdoMostBorrowed.Location = new Point(734, 559);
             rdoMostBorrowed.Name = "rdoMostBorrowed";
             rdoMostBorrowed.Size = new Size(180, 32);
             rdoMostBorrowed.TabIndex = 13;
             rdoMostBorrowed.TabStop = true;
             rdoMostBorrowed.Text = "Most Borrowed";
-            rdoMostBorrowed.UseVisualStyleBackColor = true;
+            rdoMostBorrowed.UseVisualStyleBackColor = false;
             // 
-            // lblStatus
+            // lblTitle
             // 
-            lblStatus.AutoSize = true;
-            lblStatus.BackColor = Color.Transparent;
-            lblStatus.Font = new Font("Sylfaen", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblStatus.ForeColor = Color.Black;
-            lblStatus.Location = new Point(189, 151);
-            lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(0, 36);
-            lblStatus.TabIndex = 15;
-            lblStatus.TextAlign = ContentAlignment.MiddleCenter;
+            lblTitle.AutoSize = true;
+            lblTitle.BackColor = Color.White;
+            lblTitle.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Location = new Point(883, 122);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(0, 30);
+            lblTitle.TabIndex = 18;
             // 
             // btnReports
             // 
-            btnReports.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnReports.Location = new Point(513, 715);
+            btnReports.BackgroundImage = (Image)resources.GetObject("btnReports.BackgroundImage");
+            btnReports.BackgroundImageLayout = ImageLayout.Stretch;
+            btnReports.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnReports.Location = new Point(986, 496);
             btnReports.Name = "btnReports";
-            btnReports.Size = new Size(122, 38);
-            btnReports.TabIndex = 16;
-            btnReports.Text = "SHOW";
+            btnReports.Size = new Size(200, 64);
+            btnReports.TabIndex = 19;
             btnReports.UseVisualStyleBackColor = true;
-            btnReports.Click += btnReports_Click_1;
+            btnReports.Click += btnReports_Click;
             // 
-            // btnClear
+            // dataGridView1
             // 
-            btnClear.BackColor = Color.White;
-            btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClear.ForeColor = Color.Red;
-            btnClear.Location = new Point(498, 282);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new Size(68, 40);
-            btnClear.TabIndex = 17;
-            btnClear.Text = "⌫ ";
-            btnClear.UseVisualStyleBackColor = false;
-            btnClear.Click += btnClear_Click;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.SeaShell;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(48, 169);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 62;
+            dataGridView1.Size = new Size(552, 384);
+            dataGridView1.TabIndex = 20;
             // 
-            // label4
+            // dataGridView2
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(919, 193);
-            label4.Name = "label4";
-            label4.Size = new Size(163, 28);
-            label4.TabIndex = 18;
-            label4.Text = "Available Books";
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.BackgroundColor = Color.SeaShell;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(656, 122);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersWidth = 62;
+            dataGridView2.Size = new Size(675, 480);
+            dataGridView2.TabIndex = 21;
+            // 
+            // rdoAvailable
+            // 
+            rdoAvailable.AutoSize = true;
+            rdoAvailable.BackColor = Color.SeaShell;
+            rdoAvailable.Font = new Font("Segoe UI", 10F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            rdoAvailable.Location = new Point(734, 483);
+            rdoAvailable.Name = "rdoAvailable";
+            rdoAvailable.Size = new Size(189, 32);
+            rdoAvailable.TabIndex = 22;
+            rdoAvailable.TabStop = true;
+            rdoAvailable.Text = "Available Books";
+            rdoAvailable.UseVisualStyleBackColor = false;
+            // 
+            // dataGridView3
+            // 
+            dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView3.BackgroundColor = Color.SteelBlue;
+            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView3.Location = new Point(39, 155);
+            dataGridView3.Name = "dataGridView3";
+            dataGridView3.RowHeadersWidth = 62;
+            dataGridView3.Size = new Size(570, 409);
+            dataGridView3.TabIndex = 23;
+            // 
+            // dataGridView4
+            // 
+            dataGridView4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView4.BackgroundColor = Color.SteelBlue;
+            dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView4.Location = new Point(644, 110);
+            dataGridView4.Name = "dataGridView4";
+            dataGridView4.RowHeadersWidth = 62;
+            dataGridView4.Size = new Size(699, 506);
+            dataGridView4.TabIndex = 24;
             // 
             // Main_Form
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(1312, 849);
-            Controls.Add(label4);
-            Controls.Add(btnClear);
+            ClientSize = new Size(1361, 670);
+            Controls.Add(rdoAvailable);
             Controls.Add(btnReports);
-            Controls.Add(lblStatus);
+            Controls.Add(lblTitle);
             Controls.Add(rdoMostBorrowed);
             Controls.Add(rdoHistory);
-            Controls.Add(dgvReports);
             Controls.Add(dgvBooks);
             Controls.Add(btnReturn);
             Controls.Add(btnVerifyBorrow);
@@ -265,15 +296,22 @@
             Controls.Add(lblid);
             Controls.Add(txtStudentName);
             Controls.Add(txtStudentID);
+            Controls.Add(dataGridView1);
+            Controls.Add(dataGridView2);
+            Controls.Add(dataGridView3);
+            Controls.Add(dataGridView4);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Main_Form";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Main_Form";
+            Text = "Library Borrowing System";
             Load += Main_Form_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvBooks).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvReports).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -291,12 +329,14 @@
         private Button btnVerifyBorrow;
         private Button btnReturn;
         private DataGridView dgvBooks;
-        private DataGridView dgvReports;
         private RadioButton rdoHistory;
         private RadioButton rdoMostBorrowed;
-        private Label lblStatus;
+        private Label lblTitle;
         private Button btnReports;
-        private Button btnClear;
-        private Label label4;
+        private DataGridView dataGridView1;
+        private DataGridView dataGridView2;
+        private RadioButton rdoAvailable;
+        private DataGridView dataGridView3;
+        private DataGridView dataGridView4;
     }
 }

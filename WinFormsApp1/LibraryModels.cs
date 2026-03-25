@@ -9,7 +9,8 @@
 
     public class BorrowTransaction
     {
-        public string StudentID { get; set; } // string para pwede "STU1001"
+        public string StudentID { get; set; }
+        public string StudentName { get; set; } 
         public int BookID { get; set; }
          public DateTime DateBorrowed { get; set; }
          public DateTime? DateReturned { get; set; }

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Text;
 using System.Transactions;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace WinFormsApp1
 {
@@ -15,6 +16,13 @@ namespace WinFormsApp1
 
         List<Book> books = new List<Book>();
         List<BorrowTransaction> transactions = new List<BorrowTransaction>();
+
+        
+        Dictionary<string, string> validStudents = new Dictionary<string, string>()
+    {
+        { "MMC2025-00110", "Jahzell Adriano" },
+        { "001100002", "Juan Dela Cruz" }
+    };
 
         private void LoadBooks()
         {
@@ -31,8 +39,9 @@ namespace WinFormsApp1
         }
         private void LoadBorrowHistory()
         {
-            dgvReports.DataSource = null;
-            dgvReports.DataSource = transactions.Select(t => new
+
+            dgvBooks.DataSource = null;
+            dgvBooks.DataSource = transactions.Select(t => new
             {
                 t.StudentID,
                 t.BookID,
@@ -45,16 +54,16 @@ namespace WinFormsApp1
         private void LoadMostBorrowedBooks()
         {
             var report = transactions
-                .GroupBy(t => t.BookID)
-                .Select(g => new
-                {
-                    BookID = g.Key,
-                    BorrowCount = g.Count()
-                })
-                .OrderByDescending(x => x.BorrowCount)
-                .ToList();
+        .GroupBy(t => t.BookID)
+        .Select(g => new
+        {
+            BookID = g.Key,
+            BorrowCount = g.Count()
+        })
+        .OrderByDescending(x => x.BorrowCount)
+        .ToList();
 
-            dgvReports.DataSource = report;
+            dgvBooks.DataSource = report;
         }
         const decimal penaltyPerDay = 10;
 
@@ -63,6 +72,7 @@ namespace WinFormsApp1
             InitializeComponent();
             LoadBooks();
             DisplayBooks();
+
         }
 
 
@@ -70,7 +80,18 @@ namespace WinFormsApp1
         {
             try
             {
-                int bookID = int.Parse(txtBookID.Text);
+                if (string.IsNullOrWhiteSpace(txtBookID.Text))
+                {
+                    MessageBox.Show("Please fill all fields.", "Input Error");
+                    return;
+                }
+
+                int bookID;
+                if (!int.TryParse(txtBookID.Text, out bookID))
+                {
+                    MessageBox.Show("Invalid Book ID format.", "Error");
+                    return;
+                }
 
                 var transaction = transactions
                     .LastOrDefault(t => t.BookID == bookID && t.DateReturned == null);
@@ -80,7 +101,7 @@ namespace WinFormsApp1
 
                 transaction.DateReturned = DateTime.Now;
 
-               
+
                 int days = (transaction.DateReturned.Value - transaction.DateBorrowed).Days;
 
                 if (days > 7)
@@ -111,6 +132,7 @@ namespace WinFormsApp1
             }
         }
 
+
         private void Main_Form_Load(object sender, EventArgs e)
         {
             if (LoginForm.LoggedInRole == "Librarian")
@@ -128,6 +150,32 @@ namespace WinFormsApp1
                 {
                     throw new Exception("All fields are required.");
                 }
+
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtStudentID.Text, @"^MMC\d{4}-\d{5}$"))
+                {
+                    throw new Exception("Invalid Student ID. Please enter a valid ID");
+                }
+
+                if (!validStudents.ContainsKey(txtStudentID.Text))
+                {
+                    throw new Exception("Student ID not recognized.");
+                }
+
+                if (validStudents[txtStudentID.Text] != txtStudentName.Text)
+                {
+                    throw new Exception("This Student ID is assigned to another student.");
+                }
+
+                string[] words = txtStudentName.Text.Split(' ');
+
+                foreach (string word in words)
+                {
+                    if (!char.IsUpper(word[0]))
+                    {
+                        throw new Exception("Each word in the name must start with a capital letter.");
+                    }
+                }
+
                 int bookID;
                 if (!int.TryParse(txtBookID.Text, out bookID))
                 {
@@ -143,17 +191,31 @@ namespace WinFormsApp1
                     throw new Exception("No copies available for this book.");
                 }
 
+                bool hasActiveBorrow = transactions.Any(t =>
+                (t.StudentID == txtStudentID.Text ||
+                 t.StudentName == txtStudentName.Text) &&
+                t.DateReturned == null);
+                if (hasActiveBorrow)
+                {
+                    throw new Exception($"{txtStudentName.Text} or ID {txtStudentID.Text} still has an unreturned book.");
+                }
 
                 selectedBook.AvailableCopies--;
                 BorrowTransaction transaction = new BorrowTransaction()
                 {
                     StudentID = txtStudentID.Text,
+                    StudentName = txtStudentName.Text,
                     BookID = selectedBook.BookID,
                     DateBorrowed = DateTime.Now
                 };
                 transactions.Add(transaction);
-                lblStatus.Text = $"SUCCESS: {txtStudentName.Text} borrowed '{selectedBook.Title}'";
-                MessageBox.Show("Borrow successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                $"{txtStudentName.Text} Borrowed '{selectedBook.Title}'",
+                "Borrow Successful",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+                  );
+
                 DisplayBooks();
             }
             catch (FormatException)
@@ -163,7 +225,7 @@ namespace WinFormsApp1
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                lblStatus.Text = "Borrowing failed.";
+
             }
             finally
             {
@@ -171,12 +233,44 @@ namespace WinFormsApp1
             }
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+
+
+        private void btnReports_Click(object sender, EventArgs e)
         {
-            lblStatus.Text = "";
+            try
+            {
+                if (!rdoAvailable.Checked && !rdoHistory.Checked && !rdoMostBorrowed.Checked)
+                {
+                    MessageBox.Show("Please select a option.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (rdoAvailable.Checked)
+                {
+                    DisplayBooks();
+                    lblTitle.Text = "Available Books";
+                }
+                else if (rdoHistory.Checked)
+                {
+                    LoadBorrowHistory();
+                    lblTitle.Text = "Borrow History";
+                }
+                else if (rdoMostBorrowed.Checked)
+                {
+                    LoadMostBorrowedBooks();
+                    lblTitle.Text = "Most Borrowed Books";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
+        
     }
 }
+
 
 
 

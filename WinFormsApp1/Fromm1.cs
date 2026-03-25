@@ -10,7 +10,7 @@ namespace WinFormsApp1
 {
     public partial class Fromm1 : Form
     {
-       
+
         public Fromm1()
         {
             InitializeComponent();
@@ -22,6 +22,12 @@ namespace WinFormsApp1
             loginForm.Show();
             this.Hide();
 
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            
+            
         }
     }
 }
