@@ -65,15 +65,6 @@ namespace WinFormsApp1
             DisplayBooks();
         }
 
-        private void rdoHistory_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgvReports_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void btnReturn_Click(object sender, EventArgs e)
         {
@@ -89,7 +80,7 @@ namespace WinFormsApp1
 
                 transaction.DateReturned = DateTime.Now;
 
-                // Compute penalty
+               
                 int days = (transaction.DateReturned.Value - transaction.DateBorrowed).Days;
 
                 if (days > 7)
@@ -127,49 +118,26 @@ namespace WinFormsApp1
                 btnReports.Enabled = false;
             }
         }
-
-
-        private void btnReports_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                if (rdoHistory.Checked)
-                    LoadBorrowHistory();
-                else
-                    LoadMostBorrowedBooks();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void btnVerifyBorrow_Click(object sender, EventArgs e)
         {
             try
             {
-
                 if (string.IsNullOrWhiteSpace(txtStudentID.Text) ||
                     string.IsNullOrWhiteSpace(txtStudentName.Text) ||
                     string.IsNullOrWhiteSpace(txtBookID.Text))
                 {
                     throw new Exception("All fields are required.");
                 }
-
                 int bookID;
                 if (!int.TryParse(txtBookID.Text, out bookID))
                 {
                     throw new Exception("Invalid Book ID format.");
                 }
-
-
                 Book selectedBook = books.FirstOrDefault(b => b.BookID == bookID);
-
                 if (selectedBook == null)
                 {
                     throw new Exception("Book not found.");
                 }
-
                 if (selectedBook.AvailableCopies <= 0)
                 {
                     throw new Exception("No copies available for this book.");
@@ -177,19 +145,15 @@ namespace WinFormsApp1
 
 
                 selectedBook.AvailableCopies--;
-
                 BorrowTransaction transaction = new BorrowTransaction()
                 {
                     StudentID = txtStudentID.Text,
                     BookID = selectedBook.BookID,
                     DateBorrowed = DateTime.Now
                 };
-
                 transactions.Add(transaction);
-
                 lblStatus.Text = $"SUCCESS: {txtStudentName.Text} borrowed '{selectedBook.Title}'";
                 MessageBox.Show("Borrow successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 DisplayBooks();
             }
             catch (FormatException)
@@ -203,7 +167,6 @@ namespace WinFormsApp1
             }
             finally
             {
-
                 txtBookID.Clear();
             }
         }
