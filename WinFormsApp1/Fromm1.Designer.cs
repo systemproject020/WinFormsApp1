@@ -53,7 +53,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(747, 88);
+            panel1.Size = new Size(747, 74);
             panel1.TabIndex = 0;
             // 
             // label3
@@ -61,7 +61,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Variable Display", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(267, 26);
+            label3.Location = new Point(267, 19);
             label3.Name = "label3";
             label3.Size = new Size(216, 43);
             label3.TabIndex = 5;
@@ -111,7 +111,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Snow;
+            panel2.BackColor = Color.PeachPuff;
             panel2.Controls.Add(label1);
             panel2.Location = new Point(52, 143);
             panel2.Name = "panel2";
@@ -120,7 +120,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.RoyalBlue;
+            panel3.BackColor = Color.SteelBlue;
             panel3.Location = new Point(42, 137);
             panel3.Name = "panel3";
             panel3.Size = new Size(262, 239);
@@ -128,7 +128,7 @@
             // 
             // panel4
             // 
-            panel4.BackColor = Color.Snow;
+            panel4.BackColor = Color.PeachPuff;
             panel4.Controls.Add(label2);
             panel4.Location = new Point(443, 137);
             panel4.Name = "panel4";
@@ -137,7 +137,7 @@
             // 
             // panel5
             // 
-            panel5.BackColor = Color.RoyalBlue;
+            panel5.BackColor = Color.SteelBlue;
             panel5.Location = new Point(435, 128);
             panel5.Name = "panel5";
             panel5.Size = new Size(257, 248);

@@ -21,7 +21,9 @@ namespace WinFormsApp1
         Dictionary<string, string> validStudents = new Dictionary<string, string>()
     {
         { "MMC2025-00110", "Jahzell Adriano" },
-        { "001100002", "Juan Dela Cruz" }
+            { "MMC2025-00115", "Camille Maur" },
+            { "MMC2025-00162", "Anonuevo Rainan" },
+
     };
 
         private void LoadBooks()
