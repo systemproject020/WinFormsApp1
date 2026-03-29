@@ -10,10 +10,10 @@
     public class BorrowTransaction
     {
         public string StudentID { get; set; }
-        public string StudentName { get; set; } 
+        public string StudentName { get; set; }
         public int BookID { get; set; }
-         public DateTime DateBorrowed { get; set; }
-         public DateTime? DateReturned { get; set; }
+        public DateTime DateBorrowed { get; set; }
+        public DateTime? DateReturned { get; set; }
         public decimal Penalty { get; set; }
     }
 

@@ -1,23 +1,35 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
+﻿using LibrarySystem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Transactions;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-
 namespace WinFormsApp1
 {
     public partial class LoginForm : Form
     {
+       
+
         List<User> users = new List<User>()
         {
             new User { Username = "Admin", Password = "admin123", Role = "Admin" },
             new User { Username = "Librarian", Password = "lib123", Role = "Librarian" }
         };
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr RoundRec(
+        int LeftRec,
+        int ToptRec,
+        int RightRec,
+        int BottomRec,
+        int Width,
+        int Height
+        );
 
         public static string LoggedInRole;
 
@@ -34,6 +46,8 @@ namespace WinFormsApp1
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+
+
             try
             {
                 var user = users.FirstOrDefault(u =>
@@ -70,5 +84,9 @@ namespace WinFormsApp1
                 txtPassword.Clear();
             }
         }
+
+      
     }
 }
+
+        
