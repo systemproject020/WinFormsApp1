@@ -13,17 +13,14 @@ namespace WinFormsApp1
 {
     public partial class Main_Form : Form
     {
-
         List<Book> books = new List<Book>();
         List<BorrowTransaction> transactions = new List<BorrowTransaction>();
 
-        
         Dictionary<string, string> validStudents = new Dictionary<string, string>()
     {
         { "MMC2025-00110", "Jahzell Adriano" },
             { "MMC2025-00115", "Camille Maur" },
             { "MMC2025-00162", "Anonuevo Rainan" },
-
     };
 
         private void LoadBooks()
@@ -41,7 +38,6 @@ namespace WinFormsApp1
         }
         private void LoadBorrowHistory()
         {
-
             dgvBooks.DataSource = null;
             dgvBooks.DataSource = transactions.Select(t => new
             {
@@ -67,85 +63,56 @@ namespace WinFormsApp1
 
             dgvBooks.DataSource = report;
         }
-        const decimal penaltyPerDay = 10;
-
-        public Main_Form()
-        {
-            InitializeComponent();
-            LoadBooks();
-            DisplayBooks();
-
-        }
-
-
-        private void btnReturn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(txtBookID.Text))
-                {
-                    MessageBox.Show("Please fill all fields.", "Input Error");
-                    return;
-                }
-
-                int bookID;
-                if (!int.TryParse(txtBookID.Text, out bookID))
-                {
-                    MessageBox.Show("Invalid Book ID format.", "Error");
-                    return;
-                }
-
-                var transaction = transactions
-                    .LastOrDefault(t => t.BookID == bookID && t.DateReturned == null);
-
-                if (transaction == null)
-                    throw new Exception("No active borrow record found.");
-
-                transaction.DateReturned = DateTime.Now;
-
-
-                int days = (transaction.DateReturned.Value - transaction.DateBorrowed).Days;
-
-                if (days > 7)
-                {
-                    transaction.Penalty = (days - 7) * penaltyPerDay;
-                }
-                else
-                {
-                    transaction.Penalty = 0;
-                }
-
-
-                var book = books.FirstOrDefault(b => b.BookID == bookID);
-                if (book != null)
-                    book.AvailableCopies++;
-
-                MessageBox.Show($"Book returned. Penalty: {transaction.Penalty}");
-
-                DisplayBooks();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Return Error");
-            }
-            finally
-            {
-                txtBookID.Clear();
-            }
-        }
-
 
         private void Main_Form_Load(object sender, EventArgs e)
         {
             if (LoginForm.LoggedInRole == "Librarian")
             {
-                btnReports.Enabled = false;
+                btnReport.Enabled = false;
             }
         }
-        private void btnVerifyBorrow_Click(object sender, EventArgs e)
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
             try
             {
+                DialogResult result = MessageBox.Show(
+                    "Are you sure you want to log out?",
+                    "Confirm Logout",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    Fromm1 login = new Fromm1();
+                    login.Show();
+                    this.Hide();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+                {
+                Console.WriteLine("Logout attempt done.");
+            }
+                }
+
+        private void btnReturn_Click(object sender, EventArgs e)
+                {
+            try
+            {
+                if (LoginForm.LoggedInRole == "Librarian")
+                {
+                    if (DateTime.Now.Hour < 8 || DateTime.Now.Hour >= 17)
+                    {
+                        MessageBox.Show("Borrowing allowed only from 8:00 AM to 5:00 PM.");
+                    return;
+                }
+                }
+
                 if (string.IsNullOrWhiteSpace(txtStudentID.Text) ||
                     string.IsNullOrWhiteSpace(txtStudentName.Text) ||
                     string.IsNullOrWhiteSpace(txtBookID.Text))
@@ -169,7 +136,6 @@ namespace WinFormsApp1
                 }
 
                 string[] words = txtStudentName.Text.Split(' ');
-
                 foreach (string word in words)
                 {
                     if (!char.IsUpper(word[0]))
@@ -227,49 +193,31 @@ namespace WinFormsApp1
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
             finally
             {
                 txtBookID.Clear();
             }
         }
-
-
-
-        private void btnReports_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!rdoAvailable.Checked && !rdoHistory.Checked && !rdoMostBorrowed.Checked)
-                {
-                    MessageBox.Show("Please select a option.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                if (rdoAvailable.Checked)
-                {
-                    DisplayBooks();
-                    lblTitle.Text = "Available Books";
-                }
+            }
+        }
                 else if (rdoHistory.Checked)
                 {
                     LoadBorrowHistory();
                     lblTitle.Text = "Borrow History";
-                }
-                else if (rdoMostBorrowed.Checked)
-                {
-                    LoadMostBorrowedBooks();
-                    lblTitle.Text = "Most Borrowed Books";
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                rdoAvailable.Checked = false;
+                rdoHistory.Checked = false;
+                rdoMostBorrowed.Checked = false;
+            }
         }
-
-        
     }
 }
 

@@ -5,19 +5,18 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
-using System.Windows.Forms;
 using System.Transactions;
-using LibrarySystem;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace WinFormsApp1
 {
     public partial class LoginForm : Form
     {
-
         List<User> users = new List<User>()
         {
-            new User { Username = "admin", Password = "admin123", Role = "Admin" },
-            new User { Username = "librarian", Password = "lib123", Role = "Librarian" }
+            new User { Username = "Admin", Password = "admin123", Role = "Admin" },
+            new User { Username = "Librarian", Password = "lib123", Role = "Librarian" }
         };
 
         public static string LoggedInRole;
@@ -27,7 +26,13 @@ namespace WinFormsApp1
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            panel1.Region = System.Drawing.Region.FromHrgn(RoundRec(0, 0, panel1.Width, panel1.Height, 20, 20));
+            panel1.BackColor = Color.FromArgb(180, 0, 0, 0);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -42,8 +47,18 @@ namespace WinFormsApp1
 
                 MessageBox.Show("Login Successful!");
 
-                Main_Form main = new Main_Form();
-                main.Show();
+
+                if (user.Role == "Admin")
+                {
+                    Admin_Form admin = new Admin_Form();
+                    admin.Show();
+                }
+                else if (user.Role == "Librarian")
+                {
+                    Librarian librarian = new Librarian();
+                    librarian.Show();
+                }
+
                 this.Hide();
             }
             catch (Exception ex)
@@ -54,21 +69,6 @@ namespace WinFormsApp1
             {
                 txtPassword.Clear();
             }
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-            label1.BackColor = Color.Transparent;
         }
     }
 }

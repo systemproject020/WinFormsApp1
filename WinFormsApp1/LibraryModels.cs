@@ -15,8 +15,6 @@
          public DateTime DateBorrowed { get; set; }
          public DateTime? DateReturned { get; set; }
         public decimal Penalty { get; set; }
-                    
-        }
     }
 
     public class User
@@ -25,3 +23,4 @@
         public string Password { get; set; }
         public string Role { get; set; }
     }
+}

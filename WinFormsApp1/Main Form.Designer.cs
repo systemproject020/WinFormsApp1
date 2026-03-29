@@ -211,23 +211,12 @@
             btnReports.BackgroundImage = (Image)resources.GetObject("btnReports.BackgroundImage");
             btnReports.BackgroundImageLayout = ImageLayout.Stretch;
             btnReports.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnReports.Location = new Point(986, 496);
+            btnReports.Location = new Point(983, 505);
             btnReports.Name = "btnReports";
             btnReports.Size = new Size(200, 64);
             btnReports.TabIndex = 19;
             btnReports.UseVisualStyleBackColor = true;
-            btnReports.Click += btnReports_Click;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.BackgroundColor = Color.SeaShell;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(48, 169);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(552, 384);
-            dataGridView1.TabIndex = 20;
+            
             // 
             // dataGridView2
             // 
