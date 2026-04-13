@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Admin_Form));
             panel1 = new Panel();
+            pictureBox3 = new PictureBox();
+            pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
             label2 = new Label();
             dgvBooks = new DataGridView();
@@ -42,6 +44,8 @@
             panel5 = new Panel();
             btnExport = new Custom_Buttons();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvBooks).BeginInit();
             panel4.SuspendLayout();
@@ -51,6 +55,8 @@
             // panel1
             // 
             panel1.BackColor = Color.Navy;
+            panel1.Controls.Add(pictureBox3);
+            panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label2);
             panel1.Dock = DockStyle.Top;
@@ -58,6 +64,28 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1074, 69);
             panel1.TabIndex = 4;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(1012, 12);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(50, 46);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 27;
+            pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(928, 12);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(59, 47);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 26;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // pictureBox1
             // 
@@ -190,7 +218,7 @@
             btnExport.FlatAppearance.BorderSize = 0;
             btnExport.FlatStyle = FlatStyle.Flat;
             btnExport.ForeColor = Color.White;
-            btnExport.Location = new Point(519, 424);
+            btnExport.Location = new Point(532, 435);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(201, 50);
             btnExport.TabIndex = 29;
@@ -212,6 +240,8 @@
             Load += Admin_Form_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvBooks).EndInit();
             panel4.ResumeLayout(false);
@@ -234,5 +264,7 @@
         private Panel panel4;
         private Panel panel5;
         private Custom_Buttons btnExport;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox2;
     }
 }

@@ -86,7 +86,7 @@ namespace WinFormsApp1
 
                 if (result == DialogResult.Yes)
                 {
-                    Fromm1 login = new Fromm1();
+                    RoleForm login = new RoleForm();
                     login.Show();
                     this.Hide();
                 }
@@ -138,7 +138,7 @@ namespace WinFormsApp1
                 rdoMostBorrowed.Checked = false;
             }
         }
-         private void btnExport_Click(object sender, EventArgs e)
+        private void btnExport_Click(object sender, EventArgs e)
         {
             try
             {
@@ -147,10 +147,10 @@ namespace WinFormsApp1
 
                 using (var workbook = new XLWorkbook())
                 {
-                  
+
                     var sheet1 = workbook.Worksheets.Add("Borrow History");
 
-            
+
                     sheet1.Cell(1, 1).Value = "Student ID";
                     sheet1.Cell(1, 2).Value = "Student Name";
                     sheet1.Cell(1, 3).Value = "Book ID";
@@ -158,13 +158,13 @@ namespace WinFormsApp1
                     sheet1.Cell(1, 5).Value = "Date Returned";
                     sheet1.Cell(1, 6).Value = "Penalty";
 
-                  
+
                     var headerRow1 = sheet1.Range("A1:F1");
                     headerRow1.Style.Font.Bold = true;
                     headerRow1.Style.Fill.BackgroundColor = XLColor.DarkBlue;
                     headerRow1.Style.Font.FontColor = XLColor.White;
 
-             
+
                     int row = 2;
                     foreach (var t in LibraryData.transactions)
                     {
@@ -179,21 +179,21 @@ namespace WinFormsApp1
 
                     sheet1.Columns().AdjustToContents();
 
-                 
+
                     var sheet2 = workbook.Worksheets.Add("Most Borrowed Books");
 
-                 
+
                     sheet2.Cell(1, 1).Value = "Book ID";
                     sheet2.Cell(1, 2).Value = "Book Title";
                     sheet2.Cell(1, 3).Value = "Times Borrowed";
 
-                
+
                     var headerRow2 = sheet2.Range("A1:C1");
                     headerRow2.Style.Font.Bold = true;
                     headerRow2.Style.Fill.BackgroundColor = XLColor.DarkBlue;
                     headerRow2.Style.Font.FontColor = XLColor.White;
 
-                 
+
                     var mostBorrowed = LibraryData.transactions
                         .GroupBy(t => t.BookID)
                         .Select(g => new
@@ -216,7 +216,7 @@ namespace WinFormsApp1
 
                     sheet2.Columns().AdjustToContents();
 
-                    
+
                     SaveFileDialog saveDialog = new SaveFileDialog();
                     saveDialog.Filter = "Excel Files|*.xlsx";
                     saveDialog.FileName = $"LibraryReport_{DateTime.Now:MMddyyyy_HHmm}.xlsx";
@@ -234,9 +234,20 @@ namespace WinFormsApp1
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LoginForm f = new LoginForm();
+            f.Show();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
-    }
+}
 
 
 

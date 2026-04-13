@@ -14,6 +14,8 @@ namespace WinFormsApp1
             { "MMC2025-00110", "Jahzell Adriano" },
             { "MMC2025-00115", "Camille Maur" },
             { "MMC2025-00162", "Anonuevo Rainan" },
+            { "MMC2025-00160", "Lendie Fofue" },
+            { "MMC2025-00125", "Baldo Binay" }
         };
 
         public const decimal penaltyPerDay = 10;

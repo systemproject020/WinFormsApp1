@@ -47,55 +47,64 @@ namespace WinFormsApp1
                 if (string.IsNullOrWhiteSpace(txtStudentName.Text) || string.IsNullOrWhiteSpace(txtBookID.Text))
                     throw new Exception("All fields are required.");
 
-             
-                string[] words = txtStudentName.Text.Trim().Split(' ');
-                foreach (string word in words)
+                if (LoginForm.LoggedInRole == "Librarian")
                 {
-                    if (!char.IsUpper(word[0]))
-                        throw new Exception("Each word must start with a capital letter.");
+                    if (DateTime.Now.Hour < 8 || DateTime.Now.Hour >= 17)
+                    {
+                        MessageBox.Show("Borrowing allowed only from 8:00 AM to 5:00 PM.");
+                        return;
+                    }
+
+
+                    string[] words = txtStudentName.Text.Trim().Split(' ');
+                    foreach (string word in words)
+                    {
+                        if (!char.IsUpper(word[0]))
+                            throw new Exception("Each word must start with a capital letter.");
+                    }
+
+
+                    var student = LibraryData.validStudents.FirstOrDefault(x => x.Value == txtStudentName.Text);
+                    if (string.IsNullOrEmpty(student.Key))
+                        throw new Exception("Student not recognized.");
+                    txtStudentID.Text = student.Key;
+
+                    int bookID;
+                    if (!int.TryParse(txtBookID.Text, out bookID))
+                        throw new Exception("Invalid Book ID.");
+
+                    Book selectedBook = LibraryData.books.FirstOrDefault(b => b.BookID == bookID);
+                    if (selectedBook == null)
+                        throw new Exception("Book not found.");
+
+                    if (selectedBook.AvailableCopies <= 0)
+                        throw new Exception("No copies available.");
+
+                    var activeBorrow = LibraryData.transactions
+                        .FirstOrDefault(t => t.StudentID == txtStudentID.Text && t.DateReturned == null);
+
+                    if (activeBorrow != null)
+                    {
+                        var book = LibraryData.books.FirstOrDefault(b => b.BookID == activeBorrow.BookID);
+                        string title = book != null ? book.Title : "Unknown";
+
+                        throw new Exception($"{txtStudentName.Text} still has unreturned book: {title}");
+                    }
+
+                    selectedBook.AvailableCopies--;
+
+                    LibraryData.transactions.Add(new BorrowTransaction
+                    {
+                        StudentID = txtStudentID.Text,
+                        StudentName = txtStudentName.Text,
+                        BookID = bookID,
+                        DateBorrowed = DateTime.Now
+                    });
+
+                    MessageBox.Show("Borrow successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dgvBooks.DataSource = null;
+                    dgvBooks.DataSource = LibraryData.books;
                 }
-
-           
-                var student = LibraryData.validStudents.FirstOrDefault(x => x.Value == txtStudentName.Text);
-                if (string.IsNullOrEmpty(student.Key))
-                    throw new Exception("Student not recognized.");
-                txtStudentID.Text = student.Key;
-
-                int bookID;
-                if (!int.TryParse(txtBookID.Text, out bookID))
-                    throw new Exception("Invalid Book ID.");
-
-                Book selectedBook = LibraryData.books.FirstOrDefault(b => b.BookID == bookID);
-                if (selectedBook == null)
-                    throw new Exception("Book not found.");
-
-                if (selectedBook.AvailableCopies <= 0)
-                    throw new Exception("No copies available.");
-
-                var activeBorrow = LibraryData.transactions
-                    .FirstOrDefault(t => t.StudentID == txtStudentID.Text && t.DateReturned == null);
-
-                if (activeBorrow != null)
-                {
-                    var book = LibraryData.books.FirstOrDefault(b => b.BookID == activeBorrow.BookID);
-                    string title = book != null ? book.Title : "Unknown";
-
-                    throw new Exception($"{txtStudentName.Text} still has unreturned book: {title}");
-                }
-
-                selectedBook.AvailableCopies--;
-
-                LibraryData.transactions.Add(new BorrowTransaction
-                {
-                    StudentID = txtStudentID.Text,
-                    StudentName = txtStudentName.Text,
-                    BookID = bookID,
-                    DateBorrowed = DateTime.Now
-                });
-
-                MessageBox.Show("Borrow successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dgvBooks.DataSource = null;
-                dgvBooks.DataSource = LibraryData.books;
             }
             catch (Exception ex)
             {
@@ -113,33 +122,42 @@ namespace WinFormsApp1
         {
             try
             {
-                int bookID;
-                if (!int.TryParse(txtBookID.Text, out bookID))
-                    throw new Exception("Invalid Book ID.");
+                if (LoginForm.LoggedInRole == "Librarian")
+                {
+                    if (DateTime.Now.Hour < 8 || DateTime.Now.Hour >= 17)
+                    {
+                        MessageBox.Show("Borrowing allowed only from 8:00 AM to 5:00 PM.");
+                        return;
+                    }
 
-                var transaction = LibraryData.transactions
-                    .LastOrDefault(t => t.BookID == bookID && t.DateReturned == null);
+                    int bookID;
+                    if (!int.TryParse(txtBookID.Text, out bookID))
+                        throw new Exception("Invalid Book ID.");
 
-                if (transaction == null)
-                    throw new Exception("No active record.");
+                    var transaction = LibraryData.transactions
+                        .LastOrDefault(t => t.BookID == bookID && t.DateReturned == null);
 
-                transaction.DateReturned = DateTime.Now;
+                    if (transaction == null)
+                        throw new Exception("No active record.");
 
-                int days = (transaction.DateReturned.Value - transaction.DateBorrowed).Days;
+                    transaction.DateReturned = DateTime.Now;
 
-                if (days > 7)
-                    transaction.Penalty = (days - 7) * LibraryData.penaltyPerDay;
-                else
-                    transaction.Penalty = 0;
+                    int days = (transaction.DateReturned.Value - transaction.DateBorrowed).Days;
 
-                var book = LibraryData.books.FirstOrDefault(b => b.BookID == bookID);
-                if (book != null)
-                    book.AvailableCopies++;
+                    if (days > 7)
+                        transaction.Penalty = (days - 7) * LibraryData.penaltyPerDay;
+                    else
+                        transaction.Penalty = 0;
 
-                MessageBox.Show("Return successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var book = LibraryData.books.FirstOrDefault(b => b.BookID == bookID);
+                    if (book != null)
+                        book.AvailableCopies++;
 
-                dgvBooks.DataSource = null;
-                dgvBooks.DataSource = LibraryData.books;
+                    MessageBox.Show("Return successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    dgvBooks.DataSource = null;
+                    dgvBooks.DataSource = LibraryData.books;
+                }
             }
             catch (Exception ex)
             {
@@ -188,7 +206,7 @@ namespace WinFormsApp1
 
                 if (result == DialogResult.Yes)
                 {
-                    Fromm1 login = new Fromm1();
+                    RoleForm login = new RoleForm();
                     login.Show();
                     this.Hide();
                 }
@@ -201,6 +219,18 @@ namespace WinFormsApp1
             {
                 Console.WriteLine("Logout attempt done.");
             }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LoginForm f = new LoginForm();
+            f.Show();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

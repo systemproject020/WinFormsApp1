@@ -13,7 +13,7 @@ namespace WinFormsApp1
 {
     public partial class LoginForm : Form
     {
-       
+
 
         List<User> users = new List<User>()
         {
@@ -59,7 +59,7 @@ namespace WinFormsApp1
 
                 LoggedInRole = user.Role;
 
-                MessageBox.Show("Login Successful!");
+                MessageBox.Show("Login Successful.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                 if (user.Role == "Admin")
@@ -77,7 +77,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Login Error");
+                MessageBox.Show(ex.Message, " Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -85,8 +85,16 @@ namespace WinFormsApp1
             }
         }
 
-      
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            RoleForm f = new RoleForm();
+            f.Show();
+        }
     }
 }
-
-        

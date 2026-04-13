@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp1
 {
-    partial class Fromm1
+    partial class RoleForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fromm1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RoleForm));
             panel1 = new Panel();
+            pictureBox3 = new PictureBox();
             label3 = new Label();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
@@ -40,6 +41,7 @@
             panel4 = new Panel();
             panel5 = new Panel();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel2.SuspendLayout();
@@ -49,12 +51,24 @@
             // panel1
             // 
             panel1.BackColor = Color.RoyalBlue;
+            panel1.Controls.Add(pictureBox3);
             panel1.Controls.Add(label3);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(747, 74);
             panel1.TabIndex = 0;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(676, 12);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(59, 50);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 8;
+            pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
             // 
             // label3
             // 
@@ -143,7 +157,7 @@
             panel5.Size = new Size(257, 248);
             panel5.TabIndex = 7;
             // 
-            // Fromm1
+            // RoleForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -156,11 +170,13 @@
             Controls.Add(panel4);
             Controls.Add(panel5);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "Fromm1";
+            Name = "RoleForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Fromm1";
+            Load += RoleForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel2.ResumeLayout(false);
@@ -182,5 +198,6 @@
         private Panel panel3;
         private Panel panel4;
         private Panel panel5;
+        private PictureBox pictureBox3;
     }
 }

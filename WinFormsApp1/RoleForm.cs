@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace WinFormsApp1
 {
-    public partial class Fromm1 : Form
+    public partial class RoleForm : Form
     {
 
-        public Fromm1()
+        public RoleForm()
         {
             InitializeComponent();
         }
@@ -29,6 +29,15 @@ namespace WinFormsApp1
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Hide();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void RoleForm_Load(object sender, EventArgs e)
+        {
 
         }
     }

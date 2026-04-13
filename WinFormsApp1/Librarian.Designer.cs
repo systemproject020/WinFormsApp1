@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Librarian));
             panel1 = new Panel();
+            pictureBox3 = new PictureBox();
+            pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
             label2 = new Label();
             txtStudentID = new TextBox();
@@ -47,6 +49,8 @@
             panel5 = new Panel();
             label4 = new Label();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -58,6 +62,8 @@
             // panel1
             // 
             panel1.BackColor = Color.Navy;
+            panel1.Controls.Add(pictureBox3);
+            panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label2);
             panel1.Dock = DockStyle.Top;
@@ -66,10 +72,34 @@
             panel1.Size = new Size(1347, 69);
             panel1.TabIndex = 5;
             // 
+            // pictureBox3
+            // 
+            pictureBox3.BackColor = Color.DimGray;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(1279, 12);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(56, 41);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 28;
+            pictureBox3.TabStop = false;
+            pictureBox3.Click += pictureBox3_Click;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.Transparent;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(1185, 9);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(61, 44);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 27;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
+            // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(3, 12);
+            pictureBox1.Location = new Point(88, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(66, 47);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -83,7 +113,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Showcard Gothic", 20F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(300, 9);
+            label2.Location = new Point(358, 12);
             label2.Name = "label2";
             label2.Size = new Size(627, 50);
             label2.TabIndex = 5;
@@ -256,6 +286,8 @@
             Load += Librarian_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -286,5 +318,7 @@
         private Panel panel5;
         private Label label4;
         private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
     }
 }
